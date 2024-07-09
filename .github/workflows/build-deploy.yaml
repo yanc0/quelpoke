@@ -13,32 +13,30 @@ env:
   IMAGE_NAME: quelpoke
   REGION: europe-west9
   REGISTRY: student-yann
+  CLOUDRUN_SERVICE_DEV: service-student-yann-dev
 
 jobs:
   docker-build-push:
     runs-on: ubuntu-latest
     steps:
-      - name: set short sha env
+      - name: export short sha env
         run: echo "GITHUB_SHA_SHORT=${GITHUB_SHA::7}" >> $GITHUB_ENV
 
-      - name: set registry domain
+      - name: export registry domain
         run: echo "REGISTRY_DOMAIN=${REGION}-docker.pkg.dev" >> $GITHUB_ENV
 
-      - name: set image name env
+      - name: export image name env
         run: echo "IMAGE_NAME=${REGISTRY_DOMAIN}/${PROJECT_ID}/${REGISTRY}/pokemon:${GITHUB_SHA_SHORT}" >> $GITHUB_ENV
 
       - uses: actions/checkout@v4
 
-      - name: "auth"
+      - name: "gcloud auth"
         uses: 'google-github-actions/auth@v2'
         with:
           credentials_json: '${{ secrets.SERVICE_ACCOUNT_KEY }}'
 
-      - name: 'Set up Cloud SDK'
+      - name: "gcloud setup"
         uses: 'google-github-actions/setup-gcloud@v2'
-
-      - name: gcloud auth list
-        run: gcloud auth list
 
       - name: gcloud configure docker 
         run: gcloud --quiet auth configure-docker ${REGION}-docker.pkg.dev
@@ -49,5 +47,5 @@ jobs:
       - name: docker push 
         run: docker push ${IMAGE_NAME}
 
-      - name: gcloud deploy
-        run: gcloud run deploy --image=${IMAGE_NAME} service-student-yann-dev --project=${PROJECT_ID} --region=${REGION}
+      - name: gcloud run deploy
+        run: gcloud run deploy --image=${IMAGE_NAME} ${CLOUDRUN_SERVICE_DEV} --project=${PROJECT_ID} --region=${REGION}
