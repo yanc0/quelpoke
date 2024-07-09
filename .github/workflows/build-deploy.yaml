@@ -9,7 +9,7 @@ on:
   # pull_request:
 
 env:
-  PROJECT_ID: quelpoke
+  PROJECT_ID: pokedevops
   IMAGE_NAME: quelpoke
   REGION: europe-west9
   REGISTRY: student-yann
