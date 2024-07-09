@@ -1,0 +1,12 @@
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Quelpoke version'
+        default: '2.5.3'
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: deploy
+        run: echo "${{ github.event.inputs.version }}"
