@@ -25,7 +25,7 @@ jobs:
         run: echo "REGISTRY_DOMAIN=${REGION}-docker.pkg.dev" >> $GITHUB_ENV
 
       - name: set image name env
-        run: echo "IMAGE_NAME=${REGISTRY_DOMAIN}/${PROJECT_ID}/${REGISTRY}:${GITHUB_SHA_SHORT}" >> $GITHUB_ENV
+        run: echo "IMAGE_NAME=${REGISTRY_DOMAIN}/${PROJECT_ID}/${REGISTRY}/pokemon:${GITHUB_SHA_SHORT}" >> $GITHUB_ENV
 
       - uses: actions/checkout@v4
 
