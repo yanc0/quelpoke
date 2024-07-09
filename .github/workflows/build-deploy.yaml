@@ -29,8 +29,8 @@ jobs:
         with:
           credentials_json: '${{ secrets.SERVICE_ACCOUNT_KEY }}'
 
-      - name: "gcloud setup"
-        uses: 'google-github-actions/setup-gcloud@v2'
+      # - name: "gcloud setup"
+      #   uses: 'google-github-actions/setup-gcloud@v2'
 
       - name: gcloud configure docker 
         run: gcloud --quiet auth configure-docker ${REGION}-docker.pkg.dev
