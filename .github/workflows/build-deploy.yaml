@@ -9,6 +9,7 @@ env:
   REGISTRY: student-yann
   CLOUDRUN_SERVICE_DEV: service-student-yann-dev
 
+jobs:
   docker-build-push:
     runs-on: ubuntu-latest
     steps:
