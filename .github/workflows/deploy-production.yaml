@@ -1,5 +1,6 @@
 name: deploy production
 on:
+  push:
   workflow_dispatch:
     inputs:
       version:
