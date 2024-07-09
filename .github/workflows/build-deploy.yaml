@@ -35,7 +35,7 @@ jobs:
           credentials_json: "${{ secrets.SERVICE_ACCOUNT_KEY }}"
 
       - name: gcloud configure docker 
-        run: gcloud auth configure-docker ${{REGION}}-docker.pkg.dev
+        run: gcloud auth configure-docker ${REGION}-docker.pkg.dev
 
       - name: docker build 
         run: docker build --tag=${IMAGE_NAME} .
