@@ -21,8 +21,11 @@ jobs:
       - name: set short sha env
         run: echo "GITHUB_SHA_SHORT=${GITHUB_SHA::7}" >> $GITHUB_ENV
 
+      - name: set registry domain
+        run: echo "REGISTRY_DOMAIN=${{REGION}}-docker.pkg.dev" >> $GITHUB_ENV
+        
       - name: set image name env
-        run: echo "IMAGE_NAME=${{REGION}}-docker.pkg.dev/${{PROJECT_ID}}/${{REGISTRY}}:${{GITHUB_SHA_SHORT}}" >> $GITHUB_ENV
+        run: echo "IMAGE_NAME=${{REGISTRY_DOMAIN}}/${{PROJECT_ID}}/${{REGISTRY}}:${{GITHUB_SHA_SHORT}}" >> $GITHUB_ENV
 
       - uses: actions/checkout@v4
 
