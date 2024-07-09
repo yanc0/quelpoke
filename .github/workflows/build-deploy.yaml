@@ -49,3 +49,6 @@ jobs:
       
       - name: docker push 
         run: docker push ${IMAGE_NAME}
+
+      - name: gcloud deploy
+        run: gcloud run deploy --image=${IMAGE_NAME} service-student-yann-dev --project=${PROJECT_ID}
