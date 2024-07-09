@@ -37,6 +37,7 @@ jobs:
       - name: gcloud auth list
         run: gcloud auth list
 
+
       - name: gcloud configure docker 
         run: gcloud --quiet auth configure-docker ${REGION}-docker.pkg.dev
 
