@@ -1,6 +1,5 @@
 name: deploy app to environment
 on:
-  push:
   workflow_dispatch:
     inputs:
       environment:
