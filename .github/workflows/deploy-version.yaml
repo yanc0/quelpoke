@@ -28,6 +28,14 @@ jobs:
       - name: export image name env
         run: echo "IMAGE_NAME=${REGISTRY_DOMAIN}/${PROJECT_ID}/${REGISTRY}/${APP_NAME}:${{ github.event.inputs.version }}" >> $GITHUB_ENV
 
+      - name: "gcloud auth"
+        uses: 'google-github-actions/auth@v2'
+        with:
+          credentials_json: '${{ secrets.SERVICE_ACCOUNT_KEY }}'
+
+      - name: gcloud configure docker 
+        run: gcloud --quiet auth configure-docker ${REGION}-docker.pkg.dev
+
       - name: check if image exists
         run: docker pull ${IMAGE_NAME}
 
