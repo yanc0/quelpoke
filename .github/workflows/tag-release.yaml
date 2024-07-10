@@ -1,8 +1,6 @@
 name: docker tag and push to preprod
 on:
   push:
-    branches:
-    - main
     tags:
 
 env:
