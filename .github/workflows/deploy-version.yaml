@@ -11,7 +11,6 @@ on:
           - prod
       version:
         description: 'App version'
-        default: '2.5.3'
         required: true
 env:
   PROJECT_ID: pokedevops
@@ -23,6 +22,9 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
+      - name: export registry domain
+        run: echo "REGISTRY_DOMAIN=${REGION}-docker.pkg.dev" >> $GITHUB_ENV
+
       - name: export image name env
         run: echo "IMAGE_NAME=${REGISTRY_DOMAIN}/${PROJECT_ID}/${REGISTRY}/${APP_NAME}:${{ github.event.inputs.version }}" >> $GITHUB_ENV
 
