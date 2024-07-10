@@ -20,6 +20,7 @@ type indexTemplateParams struct {
 	PokemonID   uint64
 	PokemonName string
 	Name        string
+	Version     string
 }
 
 // env return environment value or default if not exists
@@ -58,6 +59,7 @@ func index(w http.ResponseWriter, r *http.Request) {
 	params := indexTemplateParams{
 		PokemonID: pokemonID(name, 151),
 		Name:      name,
+		Version:   env("VERSION", "dev"),
 	}
 	params.PokemonName, err = pokemonName(params.PokemonID)
 	if err != nil {

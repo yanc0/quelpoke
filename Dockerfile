@@ -4,4 +4,5 @@ RUN go build quelpoke
 
 FROM gcr.io/distroless/base-debian12
 COPY --from=build /go/quelpoke /quelpoke
+ENV VERSION dev
 ENTRYPOINT [ "/quelpoke" ]

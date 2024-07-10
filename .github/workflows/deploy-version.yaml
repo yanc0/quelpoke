@@ -40,4 +40,9 @@ jobs:
         run: docker pull ${IMAGE_NAME}
 
       - name: gcloud run deploy
-        run: gcloud run deploy --image=${IMAGE_NAME} ${CLOUDRUN_SERVICE_PREFIX}-"${{ github.event.inputs.environment }}" --project=${PROJECT_ID} --region=${REGION}
+        run: |
+          gcloud run deploy ${CLOUDRUN_SERVICE_PREFIX}-"${{ github.event.inputs.environment }}" \
+          --image=${IMAGE_NAME} \
+          --project=${PROJECT_ID} \
+          --region=${REGION} \
+          --set-env-vars=VERSION=${{ github.event.inputs.version }}

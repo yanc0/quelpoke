@@ -46,4 +46,9 @@ jobs:
         run: docker push ${IMAGE_NAME}:${TAG_NAME}
 
       - name: gcloud run deploy
-        run: gcloud run deploy --image=${IMAGE_NAME}:${TAG_NAME} ${CLOUDRUN_SERVICE} --project=${PROJECT_ID} --region=${REGION}
+        run: |
+          gcloud run deploy ${CLOUDRUN_SERVICE} \
+          --image=${IMAGE_NAME}:${TAG_NAME} \
+          --project=${PROJECT_ID} \
+          --region=${REGION} \
+          --set-env-vars=VERSION=${TAG_NAME}

@@ -41,4 +41,9 @@ jobs:
         run: docker push ${IMAGE_NAME}
 
       - name: gcloud run deploy
-        run: gcloud run deploy --image=${IMAGE_NAME} ${CLOUDRUN_SERVICE_DEV} --project=${PROJECT_ID} --region=${REGION}
+        run: |
+          gcloud run deploy ${CLOUDRUN_SERVICE_DEV} \
+          --image=${IMAGE_NAME} \
+          --project=${PROJECT_ID} \
+          --region=${REGION} \
+          --set-env-vars=VERSION=${GITHUB_SHA_SHORT}
