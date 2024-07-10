@@ -1,0 +1,34 @@
+name: deploy app to environment
+on:
+  push:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Target environment"
+        default: prod
+        required: true 
+        options:
+          - preprod
+          - prod
+      version:
+        description: 'App version'
+        default: '2.5.3'
+        required: true
+env:
+  PROJECT_ID: pokedevops
+  APP_NAME: quelpoke
+  REGION: europe-west9
+  REGISTRY: student-yann
+  CLOUDRUN_SERVICE_PREFIX: service-student-yann
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: export image name env
+        run: echo "IMAGE_NAME=${REGISTRY_DOMAIN}/${PROJECT_ID}/${REGISTRY}/${APP_NAME}:${{ github.event.inputs.version }}" >> $GITHUB_ENV
+
+      - name: check if image exists
+        run: docker pull ${IMAGE_NAME}
+
+      - name: gcloud run deploy
+        run: gcloud run deploy --image=${IMAGE_NAME} ${CLOUDRUN_SERVICE_PREFIX}-"${{ github.event.inputs.environment }}" --project=${PROJECT_ID} --region=${REGION}
