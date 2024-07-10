@@ -2,7 +2,7 @@ name: docker tag and push to preprod
 on:
   push:
     tags:
-
+    - "*"
 env:
   PROJECT_ID: pokedevops
   APP_NAME: quelpoke
